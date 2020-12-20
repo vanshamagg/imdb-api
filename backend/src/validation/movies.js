@@ -12,6 +12,7 @@ exports.validateMovie = [
 ];
 
 
+
 exports.isRequestValidated = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.array().length > 0) {

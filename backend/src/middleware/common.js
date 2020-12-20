@@ -1,22 +1,20 @@
-const jwt=require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const load = require("dotenv").config();
 if (load.error) throw load.error;
 
-
-exports.requireSignin=(req,res,next)=>{
-    const token=req.header('x-auth-token');
-    if(!token){
-        return res.status(401).json({msg:"no token found...."});
+exports.requireSignin = (req, res, next) => {
+    const token = req.header("x-auth-token");
+    if (!token) {
+        return res.status(401).json({ msg: "no token found...." });
     }
-    try{
-       const decodetoken=jwt.verify(token,process.env.SecretKey);
-       req.user=decodetoken;
-       
-    }catch{
-      res.status(401).json({msg:"Token is invalid"});
+    try {
+        const decodetoken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        req.user = decodetoken;
+    } catch {
+        res.status(401).json({ msg: "Token is invalid" });
     }
     next();
-}
+};
 // exports.userMiddleware = (req, res, next) => {
 //    // console.log(req.user.role);
 //     if(req.user.role !== 'user'){
@@ -25,11 +23,10 @@ exports.requireSignin=(req,res,next)=>{
 //     next();
 // }
 
-
 exports.adminMiddleware = (req, res, next) => {
-  //  console.log(req.user.role);
-    if(req.user.role !== 'admin'){
-        return res.status(400).json({ message: 'Admin access denied' })
+    //  console.log(req.user.role);
+    if (req.user.role !== "admin") {
+        return res.status(400).json({ message: "Admin access denied" });
     }
     next();
-}
+};

@@ -1,26 +1,20 @@
-const load = require('dotenv').config();
-if(load.error) {
+const load = require("dotenv").config();
+if (load.error) {
     throw load.error;
 }
 
-const db = require('./models')
-const express = require('express');
+const db = require("./models");
+const express = require("express");
 const app = express();
 
+app.use("/api", require("./routes"));
+app.get("/", (req, res) => {
+    res.json({ message: "Yo Hi" });
+});
 
-
-app.use('/api', require('./routes'))
-app.get('/', (req, res)=> {
-    res.json({message: "Yo Hi"});
-})
-
-app.post('/', ( req, res)=> {
-    console.log(req.body)
+app.post("/", (req, res) => {
+    console.log(req.body);
     res.end();
-})
+});
 
-
-
-app.listen(5000,() => console.log(`Server Started Guys! at ${5000}`));
-
-
+app.listen(process.env.PORT, () => console.log(`Server Started Guys! at ${5000}`));
