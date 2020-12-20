@@ -24,5 +24,6 @@ const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 db.Movies = require("./movie.model")(sequelize, Sequelize);
+db.User = require("./user.model")(sequelize, Sequelize);
 
 module.exports = db;

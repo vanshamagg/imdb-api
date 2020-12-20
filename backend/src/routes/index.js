@@ -8,5 +8,7 @@ const router = express.Router();
 
 router.use(express.json());
 router.use('/movie', require('./movie.router'));
+router.use('/user', require('./user.router'));
+router.use('/admin', require('./admin.router'));
 
 module.exports = router;
